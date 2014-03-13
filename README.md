@@ -10,14 +10,4 @@ of data we are exploring.
 
 ### Setup
 
-Use [virtualenv](http://www.virtualenv.org/en/latest/) to create a python
-env:
-
-```$ virtualenv flask```
-
-Install the necessary packages:
-
-```sh
-$ flask/bin/pip install flask
-$ flask/bin/pip install tornado
-```
+$ pip install bedserver

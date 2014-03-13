@@ -10,4 +10,4 @@ of data we are exploring.
 
 ### Setup
 
-$ pip install bedserver
+`$ pip install bedserver`

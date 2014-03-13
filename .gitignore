@@ -1,1 +1,4 @@
 *.pyc
+curl.txt
+test/snp_density/
+test/test_prj/test_sample.bed.gz

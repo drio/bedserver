@@ -1,14 +1,17 @@
+ALL: index
 
-ALL: example.bed.gz.tbi
+index:
+	@for b in *.bed;do make -f ../Makefile $$b.gz.tbi; done
 
-example.bed.gz: example.bed
+%.bed.gz: %.bed
 	bgzip $<
 	gzip -cd $@ > $<
 
-example.bed.gz.tbi: example.bed.gz
-	tabix -p bed example.bed.gz
+%.bed.gz.tbi: %.bed.gz
+	tabix -p bed $<
 
 clean:
-	rm -f example.bed.gz example.bed.gz.tbi
+	rm -f *.bed.gz *.bed.gz.tbi
 
-.PHONY: clean
+.PRECIOUS: %.bed.gz
+.PHONY: clean index

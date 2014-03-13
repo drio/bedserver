@@ -2,6 +2,7 @@
 
 
 from flask import Flask, jsonify, abort, make_response, request
+from . import compute
 import json
 import os
 
@@ -50,8 +51,10 @@ def get_sample(prj_name, sample_name):
 
     start = request.json['start']
     stop = request.json['stop']
-    chrm = request.json['chrm']
+    chrm = request.json['chrm'].encode('latin-1')
     step = request.json['step']
     size = request.json['size']
 
-    return jsonify({'sample': prj_name, 'start': start, 'stop': stop, 'chrm': chrm, 'step': step, 'size': size})
+    fn = "%s/%s.bed.gz" % (prj_name, sample_name)
+    dpoints = compute.data_points(fn, start, stop, chrm, step, size)
+    return json.dumps(dpoints)

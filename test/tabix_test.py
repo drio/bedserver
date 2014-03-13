@@ -2,6 +2,7 @@
 
 import sys
 import pysam
+import json
 sys.path.append('..')
 
 
@@ -15,3 +16,4 @@ else:
     dp = compute.data_points(fn, start, stop, chrm, 1, 44)
     print len(dp)
     print dp
+    print json.dumps(dp)

@@ -55,6 +55,6 @@ def get_sample(prj_name, sample_name):
     step = request.json['step']
     size = request.json['size']
 
-    fn = "%s/%s.bed.gz" % (prj_name, sample_name)
+    fn = "%s/%s/%s.bed.gz" % (app.serve_dir, prj_name, sample_name)
     dpoints = compute.data_points(fn, start, stop, chrm, step, size)
     return json.dumps(dpoints)

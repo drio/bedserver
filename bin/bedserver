@@ -11,7 +11,6 @@ app.serve_dir = "/Users/drio/dev/bedserver/test"
 
 if env_is == 'dev':
     app.run(debug=True)
-
 else:
     http_server = HTTPServer(WSGIContainer(app))
     http_server.listen(5000)

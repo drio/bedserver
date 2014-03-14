@@ -31,6 +31,22 @@ def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 
+@app.route('/<string:seed>.html')
+def html(seed):
+    return open(app.serve_dir + '/%s.html' % seed).read()
+
+
+@app.route('/<string:seed>.js')
+def jq(seed):
+    return open(app.serve_dir + '/%s.js' % seed).read()
+
+
+@app.route('/<string:seed>.css')
+def css(seed):
+    return open(app.serve_dir + '/%s.css' % seed).read()
+
+
+
 @app.route('/bedserver/api/v1.0/projects', methods=['GET'])
 def get_samples():
     return jsonify({'samples': app.get_samples()})
@@ -38,22 +54,24 @@ def get_samples():
 
 @app.route('/bedserver/api/v1.0/samples/<string:prj_name>/<string:sample_name>', methods=['GET'])
 def get_sample(prj_name, sample_name):
-    if not request.json or not 'start' in request.json:
+    if not request.args:
         abort(400)
-    if not 'stop' in request.json:
+    if not 'start' in request.args:
         abort(400)
-    if not 'chrm' in request.json:
+    if not 'stop' in request.args:
         abort(400)
-    if not 'step' in request.json:
+    if not 'chrm' in request.args:
         abort(400)
-    if not 'size' in request.json:
+    if not 'step' in request.args:
+        abort(400)
+    if not 'size' in request.args:
         abort(400)
 
-    start = request.json['start']
-    stop = request.json['stop']
-    chrm = request.json['chrm'].encode('latin-1')
-    step = request.json['step']
-    size = request.json['size']
+    start = request.args['start']
+    stop = request.args['stop']
+    chrm = request.args['chrm'].encode('latin-1')
+    step = request.args['step']
+    size = request.args['size']
 
     fn = "%s/%s/%s.bed.gz" % (app.serve_dir, prj_name, sample_name)
     dpoints = compute.data_points(fn, start, stop, chrm, step, size)

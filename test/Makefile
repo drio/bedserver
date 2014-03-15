@@ -18,6 +18,7 @@ curl:
 	curl 'http://localhost:5000/bedserver/api/v1.0/samples/snp_density/18277.YNPRC.Indian.chr1?start=2000000&stop=3000000&chrm=Chr1&step=1&size=44'
 	@echo ""
 
+
 clean:
 	rm -f *.bed.gz *.bed.gz.tbi
 

@@ -56,16 +56,9 @@ def get_samples():
 def get_sample(prj_name, sample_name):
     if not request.args:
         abort(400)
-    if not 'start' in request.args:
-        abort(400)
-    if not 'stop' in request.args:
-        abort(400)
-    if not 'chrm' in request.args:
-        abort(400)
-    if not 'step' in request.args:
-        abort(400)
-    if not 'size' in request.args:
-        abort(400)
+    for s in [ 'start', 'stop', 'chrm', 'step', 'size' ]:
+        if not s in request.args:
+            abort(400)
 
     start = request.args['start']
     stop = request.args['stop']

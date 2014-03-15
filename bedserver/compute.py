@@ -13,14 +13,12 @@ def data_points(file_path, start, stop, chrm, step, size):
         _chrm, _start, _end, _val = gtf.split()
         _start, _end, _val = int(_start), int(_end), int(_val)
 
-        for coor in range(_start, _end):
-            if coor < p_window:
-                w_vals.append(_val)
-            else:
-                points.append(sum(w_vals)/len(w_vals))
-                p_window = p_window + w_size
-                w_vals = [_val]
-
+        if _start < p_window:
+            w_vals.append(_val)
+        else:
+            points.append(sum(w_vals)/len(w_vals))
+            p_window = p_window + w_size
+            w_vals = [_val]
 
     if len(w_vals) > 0:
         points.append(sum(w_vals)/len(w_vals))

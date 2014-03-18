@@ -46,10 +46,14 @@ def css(seed):
     return open(app.serve_dir + '/%s.css' % seed).read()
 
 
+@app.route('/<string:seed>.bed')
+def bed(seed):
+    return open(app.serve_dir + '/%s.bed' % seed).read()
+
 
 @app.route('/bedserver/api/v1.0/projects', methods=['GET'])
 def get_samples():
-    return jsonify({'samples': app.get_samples()})
+    return jsonify({'projects': app.get_samples()})
 
 
 @app.route('/bedserver/api/v1.0/samples/<string:prj_name>/<string:sample_name>', methods=['GET'])

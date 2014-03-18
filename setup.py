@@ -10,7 +10,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name = "bedserver",
-    version = "0.0.11", # Update also in __init__ ; look into zest.releaser to avoid having two versions
+    version = "0.0.12", # Update also in __init__ ; look into zest.releaser to avoid having two versions
     description = "A fast and simple bedfile server",
     long_description="Query your bed files via http with this bedfile server",
     author = "David Rio",

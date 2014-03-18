@@ -4,43 +4,31 @@
 <style>
 </style>
 
-<div id="main"> asd </div>
+<div id="main"> </div>
 
 <script src="/d3.js"></script>
 <script src="/jquery.js"></script>
 <script>
   (function() {
-    d3.select("#main").text("XXLoaded ...");
-    // d3.select("#main").text("XXLoaded...");
+    var main = d3.select("#main");
 
 
-  var url = "/bedserver/api/v1.0/samples/depth/18277"
-  var data = {"start": 1100000 , "stop": 1102000, "chrm": "Chr17", "step": 1, "size": 44};
-  var url_data = '/bedserver/api/v1.0/samples/depth/18277?start=1100000&stop=1102000&chrm=Chr17&step=1&size=44'
+    function get() {
+      var url_data = '/bedserver/api/v1.0/samples/depth/18277?start=1100000&stop=1102000&chrm=Chr17&step=1&size=44';
+      d3.json(url_data)
+        .get(function (error, data) {
+            main.append("pre").text(JSON.stringify(data));
+        });
+    }
 
-  d3.json(url_data)
-    .get(function (error, data) {
-        console.log("got response, now parse it")
-        console.log(data);
-    });
+    main.text("Loaded ...");
 
-/*
-    $.ajax({
-      url: url,
-      type: 'GET',
-      data: data,
-      crossDomain: true,
-      dataType: 'json',
-      success: function(data) {
-        console.log('ok');
-        console.log(data);
-      },
-      error: function(error) {
-        console.log(error);
-      }
-    });
-
-*/
+    d3.json('http://localhost:5000/bedserver/api/v1.0/projects')
+        .get(function (error, data) {
+            //list_prjs = Object.keys(data.projects);
+            main.append("pre").text(JSON.stringify(data));
+            get();
+        });
 
   })();
 </script>

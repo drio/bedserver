@@ -38,12 +38,12 @@ def html(seed):
 
 @app.route('/<string:seed>.js')
 def jq(seed):
-    return open(app.serve_dir + '/%s.js' % seed).read()
+    return open(app.serve_dir + '/%s.js' % seed).read() , 200, {'Content-Type': 'text/javascript'}
 
 
 @app.route('/<string:seed>.css')
 def css(seed):
-    return open(app.serve_dir + '/%s.css' % seed).read()
+    return open(app.serve_dir + '/%s.css' % seed).read(), 200, {'Content-Type': 'text/css'}
 
 
 @app.route('/<string:seed>.bed')

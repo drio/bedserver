@@ -23,12 +23,54 @@
 
     main.text("Loaded ...");
 
+   /*
     d3.json('http://localhost:5000/bedserver/api/v1.0/projects')
         .get(function (error, data) {
             //list_prjs = Object.keys(data.projects);
             main.append("pre").text(JSON.stringify(data));
             get();
         });
+
+    */
+
+      d3.text("http://localhost:5000/18277.bed", function(contents) {
+        var values = [],
+            chrm = 'Chr17',
+            size = 1280,
+            start = 1100000,
+            stop = 1102000,
+            curr_locus = +start,
+            interval_size = (stop-start)/size,
+            int_mark, n_vals, sum;
+
+        int_mark = start + interval_size;
+        n_vals = 0;
+        sum = 0;
+        d3.tsv.parseRows(contents, function(a_row) {
+          var _chrm = a_row[0],
+              locus = +a_row[1],
+              value = +a_row[3];
+          if (chrm === _chrm && locus >= start && locus <= stop) {
+            if (locus < int_mark) {
+              sum += value;
+              n_vals += 1;
+            } else {
+              if (locus < (int_mark + interval_size)) {
+                console.log("here.");
+                values.push(n_vals === 0 ? 0 : sum/n_vals);
+                sum = value;
+                n_vals = 1;
+                int_mark += interval_size;
+              }
+              else {
+              }
+            }
+          }
+          return null;
+        });
+
+        console.log(values.slice(size));
+      });
 
   })();
 </script>

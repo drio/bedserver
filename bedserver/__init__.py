@@ -35,15 +35,17 @@ def not_found(error):
 def html(seed):
     return open(app.serve_dir + '/%s.html' % seed).read()
 
-@app.route('/<string:seed>.js')
 @app.route('/js/<string:seed>.js')
 def jq(seed):
     return open(app.serve_dir + '/js/%s.js' % seed).read() , 200, {'Content-Type': 'text/javascript'}
 
-@app.route('/<string:seed>.css')
 @app.route('/css/<string:seed>.css')
 def css(seed):
     return open(app.serve_dir + '/css/%s.css' % seed).read(), 200, {'Content-Type': 'text/css'}
+
+@app.route('/imgs/<string:seed>.png')
+def imgs(seed):
+    return open(app.serve_dir + '/imgs/%s.png' % seed).read(), 200, {'Content-Type': 'image/png'}
 
 
 @app.route('/<string:seed>.bed')
